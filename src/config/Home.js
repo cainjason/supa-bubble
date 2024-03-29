@@ -40,9 +40,11 @@ const Home = () => {
       {fetchError && <p>{fetchError}</p>}
       {bubbles && (
         <div className="bubbles">
-          {bubbles.map((bubbles) => (
-            <BubblesCard key={bubbles.id} bubbles={bubbles} />
-          ))}
+          <div className="bubbles-grid">
+            {bubbles.map((bubbles) => (
+              <BubblesCard key={bubbles.id} bubbles={bubbles} />
+            ))}
+          </div>
         </div>
       )}
     </div>
