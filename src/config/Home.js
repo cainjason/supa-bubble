@@ -1,6 +1,9 @@
 import supabase from "../config/supabaseClient";
 import { usaeEffect, useEffect, useState } from "react";
 
+// components
+import BubblesCard from "../components/BubblesCard";
+
 const Home = () => {
   const [fetchError, setFetchError] = useState(null);
   const [bubbles, setBubbles] = useState(null);
@@ -11,14 +14,37 @@ const Home = () => {
 
       if (error) {
         setFetchError("Could not fetch the bubbles");
+        setBubbles(null);
         console.log(error);
       }
+      if (data) {
+        setBubbles(data);
+        setFetchError(null);
+      }
     };
+
+    fetchBubbles();
   }, []);
 
   return (
-    <div className="page home">
-      <h2 className="text-3xl font-bold underline">Home</h2>
+    <div className="page-home">
+      {" "}
+      Home
+      <input
+        className="bg-green-300 h-6 w-48"
+        type="text"
+        placeholder="bubbles"
+      />
+      bubbles
+      <button className="bg-red-400 rounded-sm">Pop Bubbles</button>
+      {fetchError && <p>{fetchError}</p>}
+      {bubbles && (
+        <div className="bubbles">
+          {bubbles.map((bubbles) => (
+            <BubblesCard key={bubbles.id} bubbles={bubbles} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
